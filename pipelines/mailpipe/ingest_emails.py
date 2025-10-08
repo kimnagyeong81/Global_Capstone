@@ -2,7 +2,7 @@
 from pathlib import Path
 from typing import List
 from langchain_community.embeddings import OllamaEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma                      # ✅ 여기로
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from pipelines.common.preprocess import clean_email
@@ -11,7 +11,7 @@ from pipelines.common.preprocess import clean_email
 # ===== 설정 =====
 BASE_URL    = "http://127.0.0.1:11434"
 EMBED_MODEL = "bge-m3"                      # 1024차원
-DATA_DIR    = Path("data/emails/raw")       # .txt 파일들
+DATA_DIR    = Path("Data/Emails/raw")       # .txt 파일들
 PERSIST_DIR = "vectorstores/emails_bge_m3"  # 새 폴더
 COLLECTION  = "emails_bge_m3"               # 새 컬렉션
 # ===============
@@ -50,17 +50,31 @@ def main():
         chunk_size=1000, chunk_overlap=200,
         separators=["\n\n", "\n", " ", ""]
     )
-    chunks = splitter.split_documents(raw_docs)
+    # ✅ 빈 청크 제거
+    chunks = [d for d in splitter.split_documents(raw_docs) if d.page_content.strip()]
     print(f"[정보] 청크 수: {len(chunks)}")
 
     emb = OllamaEmbeddings(model=EMBED_MODEL, base_url=BASE_URL)
-    vectordb = Chroma.from_documents(
-        documents=chunks,
-        embedding=emb,                 # (구버전) embedding 파라미터
+
+    # ✅ 임베딩 사전 점검 (서버/모델 확인)
+    try:
+        test_vec = emb.embed_query("ping")
+        assert isinstance(test_vec, list) and len(test_vec) > 0, "임베딩 결과가 비어 있음"
+    except Exception as e:
+        raise RuntimeError(
+            "Ollama 임베딩 호출 실패. 다음을 확인하세요:\n"
+            " - ollama 서버가 실행 중인지 (ollama serve)\n"
+            " - 임베딩 모델이 설치되었는지 (ollama pull bge-m3)\n"
+            f" - 에러: {e}"
+        )
+
+    # ✅ from_documents 대신 명시적으로 생성 후 add_documents
+    vectordb = Chroma(
         collection_name=COLLECTION,
         persist_directory=PERSIST_DIR,
+        embedding_function=emb,
     )
-    vectordb.persist()
+    vectordb.add_documents(chunks)   # 내부에서 임베딩 호출
     print(f"[저장 완료] Chroma → {PERSIST_DIR} | collection='{COLLECTION}'")
 
 if __name__ == "__main__":

@@ -2,6 +2,11 @@ from pathlib import Path
 from datetime import datetime
 import json
 from faster_whisper import WhisperModel
+
+from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).resolve().parents[2]))  # 프로젝트 루트 추가
+
 from pipelines.common.preprocess import clean_voice 
 
 AUDIO_DIR = Path("data/audio")
