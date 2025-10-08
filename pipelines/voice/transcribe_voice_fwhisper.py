@@ -2,6 +2,7 @@ from pathlib import Path
 from datetime import datetime
 import json
 from faster_whisper import WhisperModel
+from pipelines.common.preprocess import clean_voice 
 
 AUDIO_DIR = Path("data/audio")
 OUT_PATH   = Path("data/voice_transcripts/transcripts.jsonl")
@@ -50,6 +51,10 @@ def main():
         for p in sorted(AUDIO_DIR.glob("*.*")):
             print(f"[STT] {p.name} …")
             text = transcribe_file(model, p)
+
+            # 🔽 여기서 전처리 추가
+            text = clean_voice(text, pii=True, drop_timestamps=True, drop_fillers=True)
+
             if text:
                 f.write(json.dumps(make_doc(p, text), ensure_ascii=False) + "\n")
     print(f"✅ saved: {OUT_PATH}")

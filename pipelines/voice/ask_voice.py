@@ -1,11 +1,11 @@
 # voice/ask_voice.py
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
-
-BASE_URL = "http://127.0.0.1:11434"
-EMBED_MODEL = "bge-m3"
-PERSIST_DIR = "vectorstores/voices_bge_m3"
-COLLECTION = "voices_bge_m3"
+import os
+BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434")
+EMBED_MODEL = os.getenv("VOICE_EMB_MODEL", "bge-m3")
+PERSIST_DIR = os.getenv("VOICE_DB_DIR", "vectorstores/voices_bge_m3")
+COLLECTION = os.getenv("VOICE_COLLECTION", "voices_bge_m3")
 
 def main():
     q = input("질문: ").strip()

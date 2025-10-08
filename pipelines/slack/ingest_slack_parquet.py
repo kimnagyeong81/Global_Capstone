@@ -1,75 +1,88 @@
-# pipelines/slack/ingest_slack_parquet.py
-import os
-from pathlib import Path 
-import pandas as pd
-from typing import List
+# pipelines/slack/ask_slack.py
+import os, sys
+from pathlib import Path
+from typing import List, Tuple
 from sentence_transformers import SentenceTransformer
 from chromadb import PersistentClient
 
-# === 경로 설정 ===
-ROOT = Path(__file__).resolve().parents[2]   # project/
-DATA_DIR = ROOT / "data" / "slack"
-PARQUET_GLOB = "train-*.parquet"             # 예: train-00000-of-00001.parquet
-DB_DIR = ROOT / "vectorstores" / "slack_bge_m3"
+# --- 설정 (env 우선) ---
+ROOT       = Path(__file__).resolve().parents[2]
+DB_DIR     = Path(os.getenv("SLACK_DB_DIR", ROOT / "vectorstores" / "slack_bge_m3"))
+COLLECTION = os.getenv("SLACK_COLLECTION", "slack")
+EMB_MODEL  = os.getenv("SLACK_EMB_MODEL", "BAAI/bge-m3")
+TOP_K      = int(os.getenv("SLACK_TOP_K", "6"))
 
-TEXT_COL = "sentences"                        # 메시지 본문 컬럼명
-META_COLS = ["workspace", "channel", "user", "ts"]  # 있으면 자동 메타데이터로
+# 전역 임베더 1회 로드
+_EMB = SentenceTransformer(EMB_MODEL)
 
-EMB_MODEL = os.getenv("SLACK_EMB_MODEL", "BAAI/bge-m3")
-BATCH = int(os.getenv("SLACK_INGEST_BATCH", "128"))
-
-def _load_df() -> pd.DataFrame:
-    files: List[Path] = sorted(DATA_DIR.glob(PARQUET_GLOB))
-    if not files:
-        raise FileNotFoundError(f"No parquet files under {DATA_DIR} (pattern={PARQUET_GLOB})")
-    dfs = [pd.read_parquet(p) for p in files]
-    df = pd.concat(dfs, ignore_index=True)
-    if TEXT_COL not in df.columns:
-        raise KeyError(f"Column '{TEXT_COL}' not found. Columns={list(df.columns)[:10]}...")
-    # 클렌징
-    df = df.dropna(subset=[TEXT_COL])
-    df[TEXT_COL] = df[TEXT_COL].astype(str).str.strip()
-    df = df[df[TEXT_COL] != ""]
-    # 메타 컬럼 존재만 남기기
-    keep_meta = [c for c in META_COLS if c in df.columns]
-    return df[[TEXT_COL] + keep_meta]
-
-def main():
-    print(f"[Ingest] loading parquet from {DATA_DIR} ...")
-    df = _load_df()
-    print(f"[Ingest] rows={len(df):,}")
-
-    print(f"[Ingest] embedding model: {EMB_MODEL}")
-    embedder = SentenceTransformer(EMB_MODEL)
-
-    DB_DIR.mkdir(parents=True, exist_ok=True)
+def _connect_collection():
     client = PersistentClient(path=str(DB_DIR))
-    # 기존 컬렉션 정리
     try:
-        client.delete_collection("slack")
-    except Exception:
-        pass
-    col = client.create_collection(name="slack", metadata={"hnsw:space": "cosine"})
+        return client.get_collection(COLLECTION)
+    except Exception as e:
+        raise RuntimeError(f"Chroma collection '{COLLECTION}' not found at {DB_DIR}. "
+                           f"인덱스가 생성됐는지 확인하세요.") from e
 
-    # 업서트
-    ids, docs, metas = [], [], []
-    for i, row in df.iterrows():
-        ids.append(f"slack-{i}")
-        docs.append(row[TEXT_COL])
-        metas.append({k: (None if pd.isna(row[k]) else str(row[k]))
-                      for k in df.columns if k != TEXT_COL})
+def _mmr_lite(docs: List[str], dists: List[float], keep: int = 6, overlap=0.6):
+    """간단 중복 억제: 토큰 bag 겹침이 큰 문서 제거."""
+    pairs = list(zip(docs, dists))
+    pairs.sort(key=lambda x: x[1])  # 거리↑(유사도↓)이므로 오름차순=가까운 것 먼저
+    chosen: List[Tuple[str, float]] = []
+    for doc, dist in pairs:
+        ws = set(doc.split())
+        if all(len(ws & set(x.split())) / max(1, len(ws)) < overlap for x, _ in chosen):
+            chosen.append((doc, dist))
+        if len(chosen) >= keep:
+            break
+    return [c[0] for c in chosen], [c[1] for c in chosen]
 
-        if len(ids) >= BATCH:
-            vecs = embedder.encode(docs, normalize_embeddings=True).tolist()
-            col.upsert(ids=ids, documents=docs, embeddings=vecs, metadatas=metas)
-            ids, docs, metas = [], [], []
+def search(query: str, top_k: int = TOP_K, mmr: bool = True):
+    col = _connect_collection()
+    qvec = _EMB.encode([query], normalize_embeddings=True).tolist()
+    res = col.query(query_embeddings=qvec, n_results=top_k,
+                    include=["documents", "metadatas", "distances"])
+    if not res or not res.get("documents") or not res["documents"][0]:
+        return []
 
-    if ids:
-        vecs = embedder.encode(docs, normalize_embeddings=True).tolist()
-        col.upsert(ids=ids, documents=docs, embeddings=vecs, metadatas=metas)
+    docs  = res["documents"][0]
+    metas = res["metadatas"][0]
+    dists = res["distances"][0]
 
-    print(f"✅ Done. Index at {DB_DIR}")
+    if mmr:
+        docs2, dists2 = _mmr_lite(docs, dists, keep=min(6, top_k))
+        # mmr로 추린 문서의 메타 재매핑
+        keep_set = set(docs2)
+        docs, metas, dists = [], [], []
+        for d, m, s in zip(res["documents"][0], res["metadatas"][0], res["distances"][0]):
+            if d in keep_set:
+                docs.append(d); metas.append(m); dists.append(s)
+        # 순서 보장
+        order = {d:i for i,d in enumerate(docs2)}
+        zipped = sorted(zip(docs, metas, dists), key=lambda x: order.get(x[0], 1e9))
+        return zipped
+    else:
+        return list(zip(docs, metas, dists))
+
+def format_hit(doc, meta, dist):
+    ws   = meta.get("workspace") or "-"
+    ch   = meta.get("channel") or "-"
+    user = meta.get("user") or "-"
+    ts   = meta.get("ts") or "-"
+    head = f"[{ws}#{ch} | @{user} | {ts}] (score={1-float(dist):.3f})"
+    body = doc.replace("\n", " ").strip()
+    if len(body) > 300:
+        body = body[:300] + " ..."
+    return head + "\n" + body + "\n"
 
 if __name__ == "__main__":
-    main()
-
+    query = " ".join(sys.argv[1:]) if len(sys.argv) > 1 else "virtualenv와 conda 같이 쓰는 법"
+    try:
+        hits = search(query, top_k=TOP_K, mmr=True)
+        if not hits:
+            print("결과가 없습니다. 인덱스 또는 컬렉션 설정을 확인하세요.")
+        else:
+            print("\n=== Top Results ===")
+            for doc, meta, dist in hits:
+                print(format_hit(doc, meta, dist))
+    except Exception as e:
+        print("[ERROR]", e)

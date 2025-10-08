@@ -5,6 +5,8 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from pipelines.common.preprocess import clean_email
+
 
 # ===== 설정 =====
 BASE_URL    = "http://127.0.0.1:11434"
@@ -31,7 +33,10 @@ def read_txt(path: Path) -> str:
 def load_docs() -> List[Document]:
     docs: List[Document] = []
     for p in DATA_DIR.rglob("*.txt"):
-        txt = clean_text(read_txt(p))
+        raw = read_txt(p)
+        txt = clean_email(raw, pii=True, remove_html=True, drop_quotes=True, drop_signature=True)
+        # 필요하면 기존 간단 클린도 이어서 적용
+        # txt = clean_text(txt)
         if txt.strip():
             docs.append(Document(page_content=txt, metadata={"source": str(p)}))
     return docs
