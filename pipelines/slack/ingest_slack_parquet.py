@@ -14,7 +14,7 @@ TOP_K      = int(os.getenv("SLACK_TOP_K", "6"))
 
 # 전역 임베더 1회 로드
 _EMB = SentenceTransformer(EMB_MODEL)
-#helloworld
+
 def _connect_collection():
     client = PersistentClient(path=str(DB_DIR))
     try:
