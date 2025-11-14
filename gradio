@@ -1,1 +1,140 @@
 !pip install gradio
+
+import gradio as gr
+from gradio.themes.base import Base
+
+# --- 테마 설정 ---
+class Seafoam(Base):
+    pass
+
+seafoam = Seafoam()
+
+with gr.Blocks(theme=seafoam) as demo:
+
+    # 1) 일반 대화용 LLM (RAG 안 쓰는 경우)
+    def default_llm(message: str) -> str:
+        prompt_text = f"""
+        당신은 회사 내부에서 사용하는 일반 업무용 챗봇입니다.
+        user_input 에 자연스럽게 대답하되,
+        사용자가 회사 이메일·슬랙·회의록 같은 구체적인 데이터 조회를 요청하지 않는다면
+        가벼운 대화나 일반적인 조언 위주로 답변해 주세요.
+
+        user_input : {message}
+        """
+        return llm.invoke(prompt_text).content  # llm 은 외부에서 정의된 객체라고 가정
+
+    # 2) 이 질문에 RAG를 쓸지 말지 판단
+    def intent_detection(message: str) -> bool:
+        prompt_text = f"""
+        아래 query_text 가 '회사 내부 데이터(이메일, 슬랙, 회의록, 업무 문서 등)에 기반한
+        정보 조회 또는 분석을 요청하는 질문'이면 True,
+        그냥 인사/잡담/일반적인 질문이면 False만 반환하세요.
+
+        예시 :
+        - ("query_text": "안녕 반가워", "answer": "False")
+        - ("query_text": "요즘 일하기 힘들다", "answer": "False")
+        - ("query_text": "지난주 A프로젝트 회의에서 내가 맡은 액션 아이템이 뭐였지?", "answer": "True")
+        - ("query_text": "고객 B와 관련된 최근 이메일 내용을 요약해줘", "answer": "True")
+
+        query_text : {message}
+        """
+        result = llm.invoke(prompt_text).content.strip()
+        return result == "True"
+
+    # 3) 최종 응답 함수 (Gradio에서 호출)
+    def response(message, chat_history):
+        # ---- INTENT DETECTION ----
+        if intent_detection(message):
+            # ---- RAG ANSWER ----
+            # rag는 이미 구현되어 있다고 가정 (예: graph RAG, 멀티소스 RAG 등)
+            rag_result = rag.search(
+                query_text=message
+                + " (답변에 사용한 컨텍스트를 간단히 언급해 주세요. 반드시 한국어로 답변하세요.)",
+                return_context=True,
+            )
+
+            chat_history.append((message, rag_result.answer))
+
+            # 아래 두 줄은 네 프로젝트의 rag 결과 구조를 그대로 유지
+            cypher = rag_result.retriever_result.metadata.get("cypher", "")
+            items = rag_result.retriever_result.items
+
+            return chat_history, cypher, items
+        else:
+            # ---- 그냥 LLM으로만 대화 ----
+            llm_result = default_llm(message)
+            chat_history.append((message, llm_result))
+            msg = "업무/데이터 조회와 직접적인 관련이 없어 RAG 검색은 사용하지 않았어요."
+            return chat_history, msg, msg
+
+    # ===================== UI 구성 =====================
+
+    with gr.Row():
+        with gr.Column(scale=4):
+            gr.HTML(
+                """
+                <div style="text-align: center; max-width: 1000px; margin: 10px auto;">
+                    <div>
+                        <h1>사내 멀티소스 RAG 챗봇</h1>
+                    </div>
+                    <p style="margin-bottom: 10px; font-size: 95%">
+                        💭 사내 이메일, 슬랙 메시지, 음성 회의록 등에서 검색한 결과를 바탕으로 답변합니다.<br>
+                        답변에 사용된 RAG/그래프 조회 결과를 함께 확인해 보세요.
+                    </p>
+                </div>
+                """
+            )
+
+    with gr.Row():
+        with gr.Column(scale=1):
+            # 예전 "생성된 Cypher 쿼리 / 쿼리 조회 결과"를
+            # 좀 더 일반적인 용도로 이름만 바꿔줌
+            generated_query = gr.Textbox(label="생성된 내부 조회 쿼리(옵션)")
+            query_result = gr.Textbox(label="조회 결과 / 근거 데이터 요약")
+        with gr.Column(scale=3):
+            chatbot = gr.Chatbot()
+            msg = gr.Textbox(
+                placeholder=(
+                    "무엇을 도와드릴까요?\n"
+                    "예: \"지난주 A프로젝트 회의 내용을 요약해줘\",\n"
+                    "\"고객 B 관련 최근 슬랙 대화 찾아줘\", \"내가 어제 받은 메일 요약해줘\""
+                ),
+                label="입력",
+            )
+            examples = gr.Examples(
+                examples=[
+                    "지난주 A 프로젝트 킥오프 회의에서 정리된 액션 아이템 정리해줘.",
+                    "고객 B와 관련된 최근 이메일 대화를 요약해 줄래?",
+                ],
+                inputs=[msg],
+            )
+            with gr.Row():
+                gr.HTML(
+                    """
+                    <div style="text-align: center; max-width: 500px; margin: 0px auto;">
+                        <div><h1>  </h1></div>
+                    </div>
+                    """
+                )
+                gr.HTML(
+                    """
+                    <div style="text-align: center; max-width: 500px; margin: 0px auto;">
+                        <div><h1>  </h1></div>
+                    </div>
+                    """
+                )
+                btn = gr.Button("Submit", variant="primary")
+                clear = gr.Button("Clear")
+
+    # 버튼 동작 연결
+    btn.click(
+        fn=response,
+        inputs=[msg, chatbot],
+        outputs=[chatbot, generated_query, query_result],
+    )
+    msg.submit(response, [msg, chatbot], [chatbot, generated_query, query_result])
+
+    # 입력창만 비우는 Clear (원래 코드와 동일 동작 유지)
+    clear.click(lambda: None, None, msg, queue=False)
+
+demo.launch(debug=True, share=True)  # 필요에 따라 share=False 로 바꿔도 됨
