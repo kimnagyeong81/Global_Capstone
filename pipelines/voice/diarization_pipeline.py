@@ -11,7 +11,7 @@ from whisperx.diarize import DiarizationPipeline
 # ======================
 # 설정
 # ======================
-
+HF_TOKEN = '' # 허깅 페이스 토큰 다시 입력하기, hf_로 시작하는 문자열
 AUDIO_DIR = Path(r"C:\Users\proto\Desktop\Nagyeong\Global_Capstone\Data\voice\meeting voice datas")
 OUTPUT_DIR = Path("data/voice")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
