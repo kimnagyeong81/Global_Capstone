@@ -1,0 +1,19 @@
+{
+  "doc_id": "회의 음성 데이터 (1)",
+  "source": "voice",
+  "created_at": "2025-12-13T12:43:52.095415",
+  "segments": [
+    {
+      "speaker": "SPEAKER_00",
+      "text": " Intern Chris, hmm so the problem was mainly due to the API limit, right? That's fine by me. Analyst Choi, uh maybe we can push the testing by a day, just to be safe. Let's check it again. Intern Chris, right so the problem was mainly due to the API limit, right? Designer Han, so I think we should double check the timeline for the next sprint. Analyst Choi, you know could we finalize the color scheme today? Makes sense?",
+      "start": 0.031,
+      "end": 29.782
+    },
+    {
+      "speaker": "SPEAKER_00",
+      "text": " Designer Han, maybe we can push the testing by a day, just to be safe. Designer Han, okay we can fix that before the next release window. Let's check it again.",
+      "start": 30.676,
+      "end": 41.763
+    }
+  ]
+}
