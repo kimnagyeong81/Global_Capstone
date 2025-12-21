@@ -1,0 +1,24 @@
+{
+  "doc_id": "회의 음성 데이터 (6)",
+  "created_at": "2025-12-21T19:33:55.893535",
+  "segments": [
+    {
+      "text": " Analyst Choi, yeah I think we should double check the timeline for the next sprint. Manager Kim, yeah maybe we can push the testing by a day, just to be safe. PM Kang, you know maybe we can push the testing by a day, just to be safe. Analyst Choi, right we can fix that before the next release window. Analyst Choi, HMM the data looks promising, but we need a bit more validation. Analyst Choi, okay we might need to align with the marketing team on that. I'll handle that.",
+      "start": 0.031,
+      "end": 27.655,
+      "speaker": "SPEAKER_00"
+    },
+    {
+      "text": " PM Kang, so the data looks promising, but we need a bit more validation, I'll handle that. Marketing Li Jian, okay maybe we can push the testing by a day, just to be safe. Let's check it again. Manager Kim, right so the problem was mainly due to the API limit, right? I'll handle that.",
+      "start": 27.655,
+      "end": 44.699,
+      "speaker": "SPEAKER_00"
+    },
+    {
+      "text": " Manager Kim, right could we finalize the color scheme today? That's fine by me. Analyst Choi, so we can fix that before the next release window. Analyst Choi, so the problem was mainly due to the API limit, right? Let's check it again.",
+      "start": 44.699,
+      "end": 58.891,
+      "speaker": "SPEAKER_00"
+    }
+  ]
+}
