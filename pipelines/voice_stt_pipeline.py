@@ -5,6 +5,9 @@ from whisperx.diarize import DiarizationPipeline
 
 HF_TOKEN = "YOUR_HF_TOKEN"
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
+
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 AUDIO_DIR = PROJECT_ROOT / "Data" / "voice" / "meeting voice datas"
 OUT_DIR = PROJECT_ROOT / "Data" / "voice" / "transcripts"
