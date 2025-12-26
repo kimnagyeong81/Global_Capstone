@@ -346,8 +346,6 @@ with left_col:
 
     st.markdown("<div class='sb-title'>Source Types</div>", unsafe_allow_html=True)
 
-    if "src_documents" not in st.session_state:
-        st.session_state.src_documents = False
     if "src_email" not in st.session_state:
         st.session_state.src_email = True
     if "src_slack" not in st.session_state:
@@ -362,7 +360,6 @@ with left_col:
         with c2:
             st.markdown(f"<div class='sb-count'>{count:,}</div>", unsafe_allow_html=True)
 
-    source_row("src_documents", "📄", "Documents", counts.get("documents", 0), False)
     source_row("src_email", "✉️", "Emails", counts.get("email", 0), True)
     source_row("src_slack", "💬", "Slack Messages", counts.get("slack", 0), True)
     source_row("src_voice", "🎙️", "Voice Transcripts", counts.get("voice", 0), False)
@@ -376,9 +373,6 @@ with left_col:
         selected_sources.append("slack")
     if st.session_state.src_voice:
         selected_sources.append("voice")
-    # documents는 pipeline에서 지원 시 포함
-    # if st.session_state.src_documents:
-    #     selected_sources.append("documents")
 
     st.markdown("<div class='sb-title'>Date Range</div>", unsafe_allow_html=True)
     date_range = st.radio(
@@ -410,30 +404,39 @@ with chat_col:
         embed_tag = st.text_input("Embedding tag (vectorstore folder suffix)", value="bge_m3")
 
     # Messages
-    st.markdown("<div class='chat-wrap'>", unsafe_allow_html=True)
+    # --- Messages render (✅ 한 번에 렌더링해서 chat-wrap 안에 넣기) ---
+    messages_html = []
+
     for m in st.session_state.messages:
         role = m.get("role", "assistant")
-        content = m.get("content", "")
+        content = (m.get("content", "") or "").replace("\n", "<br/>")
 
         if role == "user":
-            st.markdown(
+            messages_html.append(
                 f"""
 <div class="msg-row msg-right">
   <div class="bubble bubble-user">{content}</div>
 </div>
-""",
-                unsafe_allow_html=True,
-            )
+"""
+        )
         else:
-            st.markdown(
+            messages_html.append(
                 f"""
 <div class="msg-row msg-left">
   <div class="bubble bubble-ai">{content}</div>
 </div>
+"""
+        )
+
+    st.markdown(
+        f"""
+<div class='chat-wrap' id='chatWrap'>
+       {''.join(messages_html)}
+</div>
 """,
-                unsafe_allow_html=True,
-            )
-    st.markdown("</div>", unsafe_allow_html=True)
+        unsafe_allow_html=True,
+)
+
 
     # Sticky input (inside center column)
     st.markdown("<div class='sticky-input'>", unsafe_allow_html=True)
