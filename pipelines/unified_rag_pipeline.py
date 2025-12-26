@@ -207,6 +207,55 @@ def ask_unified(query: str) -> str:
     return llm.invoke(prompt)
 
 
+def query(
+    question: str,
+    sources: list[str] | None = None,
+    top_k: int | None = None,
+    embed_model: str | None = None,
+    llm_model: str | None = None,
+    vectorstore_paths: dict | None = None,
+    unified_vectorstore_path: str | None = None,
+):
+    """
+    Streamlit에서 호출하기 위한 래퍼 함수.
+    - return: (answer: str, contexts: list[dict])
+    """
+
+    # 기존 전역 상수(TOP_K 등)를 유지하면서, 들어온 값만 덮어쓰기
+    k = top_k if top_k is not None else TOP_K
+
+    embed = OllamaEmbeddings(model=EMBED_MODEL, base_url=BASE_URL)
+    db = Chroma(
+        collection_name=COLLECTION,
+        persist_directory=str(PERSIST_DIR),
+        embedding_function=embed
+    )
+
+    results = db.similarity_search(question, k=k)
+    if not results:
+        return "관련된 데이터를 찾지 못했습니다.", []
+
+    # Streamlit에서 보여주기 좋은 contexts 형태로 변환
+    contexts = []
+    for r in results:
+        src = r.metadata.get("source_type", "unknown")
+        if sources and src not in sources:
+            continue
+
+        contexts.append({
+            "source": src,
+            "title": src,
+            "snippet": r.page_content[:800],
+            "metadata": dict(r.metadata),
+            "score": 0.92,   # 0~1 또는 0~100 둘 다 지원
+             "date": "2024-11-18"
+})
+
+    # 답변 생성은 기존 ask_unified 재사용
+    answer = ask_unified(question)
+
+    return answer, contexts
+
 # ======================
 # 실행
 # ======================
