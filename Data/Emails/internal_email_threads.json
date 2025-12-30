@@ -1,0 +1,59 @@
+[
+  {
+    "thread_id": "T1",
+    "email_id": 1,
+    "date": "2025-04-27T08:00:00",
+    "from": "CEO Park",
+    "to": [
+      "CTO Lee",
+      "CFO Han"
+    ],
+    "subject": "Next steps regarding vendor arrangement",
+    "body": "Following our recent conversations, we should proceed with updating the vendor arrangement as outlined. Please align your teams accordingly."
+  },
+  {
+    "thread_id": "T1",
+    "email_id": 2,
+    "date": "2025-04-20T06:00:00",
+    "from": "CFO Han",
+    "to": [
+      "CEO Park"
+    ],
+    "subject": "Re: Next steps regarding vendor arrangement",
+    "body": "Understood. Finance will prepare the necessary adjustments as discussed earlier."
+  },
+  {
+    "thread_id": "T2",
+    "email_id": 3,
+    "date": "2025-04-18T06:00:00",
+    "from": "CTO Lee",
+    "to": [
+      "CEO Park"
+    ],
+    "subject": "Technical follow-up",
+    "body": "As discussed in prior sessions, the team will move forward with the alternative setup. We will document remaining considerations separately."
+  },
+  {
+    "thread_id": "T3",
+    "email_id": 4,
+    "date": "2025-04-28T03:00:00",
+    "from": "Procurement Kim",
+    "to": [
+      "CFO Han",
+      "Legal Team"
+    ],
+    "subject": "Contract update status",
+    "body": "Following our earlier discussions, the updated contract draft is being finalized. No further action is required at this stage."
+  },
+  {
+    "thread_id": "T4",
+    "email_id": 5,
+    "date": "2025-04-19T15:00:00",
+    "from": "IR Lead Choi",
+    "to": [
+      "CEO Park"
+    ],
+    "subject": "External communication alignment",
+    "body": "In line with what we aligned on previously, external messaging will remain high-level and focus on continuity."
+  }
+]
