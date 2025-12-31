@@ -2,7 +2,8 @@ import os
 import time
 from dataclasses import dataclass
 from typing import Any, Dict, List, Tuple
-
+from pipelines import unified_rag_pipeline as rag
+import pipelines.unified_rag_pipeline as rag
 import streamlit as st
 
 # =========================
@@ -36,6 +37,30 @@ SOURCE_DIRS_EXT = {
     "slack": SOURCE_DIRS["slack"],
     "voice": SOURCE_DIRS["voice"],
 }
+
+# =========================
+# Data Embedding
+# =========================
+if "startup_index_done" not in st.session_state:
+    st.session_state.startup_index_done = False
+
+if not st.session_state.startup_index_done:
+    with st.spinner("데이터 변경 여부 확인 및 인덱싱 중..."):
+        result = rag.ensure_indexes(
+            # streamlit_app.py가 이미 계산/보유한 경로가 있다면 그대로 넘기세요.
+            # 없으면 None이어도 기본 경로로 생성됩니다.
+            vectorstore_paths=None,
+            unified_vectorstore_path=None,
+            sources=["email", "slack", "voice"],  # 체크박스 기본값과 맞추면 됩니다
+            force_rebuild=False,
+        )
+    st.session_state.startup_index_done = True
+
+    if result.get("did_rebuild"):
+        st.success(f"인덱스 재생성 완료 ({result.get('reason')})")
+    else:
+        st.info("인덱스는 최신 상태입니다.")
+st.write(rag.debug_data_counts())
 
 # =========================
 # Page
@@ -263,57 +288,61 @@ def call_unified_pipeline(
     date_range: str,
     departments: List[str],
 ) -> Tuple[str, List[RetrievedDoc], str]:
-    candidate_fns = ["query", "run", "ask", "rag", "answer"]
+    """
+    ✅ pipelines/unified_rag_pipeline.py에 실제 존재하는 함수만 호출하도록 고정
+    우선순위: query() -> ask_unified()
+    """
 
-    for fn_name in candidate_fns:
-        if not hasattr(pipeline_mod, fn_name):
-            continue
+    if pipeline_mod is None:
+        return (
+            "pipelines/unified_rag_pipeline.py를 불러오지 못해서 RAG 실행을 못했어요.",
+            [],
+            "pipeline_mod is None",
+        )
 
-        fn = getattr(pipeline_mod, fn_name)
+    # 1) query()가 있으면 무조건 query() 사용 (업로드한 unified_rag_pipeline에 존재) :contentReference[oaicite:8]{index=8}
+    if hasattr(pipeline_mod, "query") and callable(getattr(pipeline_mod, "query")):
+        fn = getattr(pipeline_mod, "query")
+
+        # streamlit_app.py가 내부적으로 계산하던 경로들(필요하면 유지)
         vs_paths = {s: pick_vectorstore_path(s, embed_tag) for s in sources}
         unified_vs_path = pick_vectorstore_path("unified", embed_tag)
 
-        try:
-            out = fn(
-                question=question,
-                sources=sources,
-                top_k=top_k,
-                llm_model=llm_model,
-                vectorstore_paths=vs_paths,
-                unified_vectorstore_path=unified_vs_path,
-                date_range=date_range,
-                departments=departments,
-            )
-            if isinstance(out, tuple) and len(out) >= 2:
-                return str(out[0]), normalize_contexts(out[1]), f"used: {fn_name}(keyword args)"
-            if isinstance(out, dict):
-                answer = str(out.get("answer", out.get("output", out.get("response", ""))))
-                docs = normalize_contexts(out.get("contexts", out))
-                return answer, docs, f"used: {fn_name}(dict output)"
-            return str(out), [], f"used: {fn_name}(answer only)"
-        except TypeError:
-            try:
-                out = fn(question=question, sources=sources, top_k=top_k)
-                if isinstance(out, tuple) and len(out) >= 2:
-                    return str(out[0]), normalize_contexts(out[1]), f"used: {fn_name}(minimal)"
-                if isinstance(out, dict):
-                    answer = str(out.get("answer", out.get("output", out.get("response", ""))))
-                    docs = normalize_contexts(out.get("contexts", out))
-                    return answer, docs, f"used: {fn_name}(dict minimal)"
-                return str(out), [], f"used: {fn_name}(answer only minimal)"
-            except Exception:
-                continue
-        except Exception:
-            continue
+        # ✅ 업로드하신 query() 시그니처에 맞는 인자만 전달 :contentReference[oaicite:9]{index=9}
+        out = fn(
+            question=question,
+            sources=sources,
+            top_k=top_k,
+            embed_model=embed_tag,          # query()가 받지만 내부에서 현재는 사용 안 함 :contentReference[oaicite:10]{index=10}
+            llm_model=llm_model,            # query()가 받지만 내부에서 현재는 사용 안 함 :contentReference[oaicite:11]{index=11}
+            vectorstore_paths=vs_paths,      # query()가 받지만 내부에서 현재는 사용 안 함 :contentReference[oaicite:12]{index=12}
+            unified_vectorstore_path=unified_vs_path,  # 동일 :contentReference[oaicite:13]{index=13}
+        )
 
-    return (
-        "unified_rag_pipeline에서 호출 가능한 함수(query/run/ask/rag/answer)를 찾지 못했어요.\n"
-        "또는 함수 시그니처가 달라서 호출에 실패했어요.\n\n"
-        "해결: pipelines/unified_rag_pipeline.py 안에 `query()` 함수 하나만 만들어서\n"
-        "`question, sources, top_k`(+ 선택적으로 date_range, departments, llm_model)를 받게 해주세요.",
-        [],
-        "error: no callable function matched",
+        if isinstance(out, tuple) and len(out) >= 2:
+            return str(out[0]), normalize_contexts(out[1]), "used: unified_rag_pipeline.query()"
+        return str(out), [], "used: unified_rag_pipeline.query() (answer only)"
+
+    # 2) query()가 없으면 ask_unified() 사용 :contentReference[oaicite:14]{index=14}
+    if hasattr(pipeline_mod, "ask_unified") and callable(getattr(pipeline_mod, "ask_unified")):
+        fn = getattr(pipeline_mod, "ask_unified")
+        answer = fn(question)  # ask_unified는 query 문자열 1개만 받음 :contentReference[oaicite:15]{index=15}
+        return str(answer), [], "used: unified_rag_pipeline.ask_unified()"
+
+    # 3) 둘 다 없으면: 실제로 어떤 함수가 있는지 보여주기
+    public_callables = sorted(
+        [
+            name for name, obj in vars(pipeline_mod).items()
+            if callable(obj) and not name.startswith("_")
+        ]
     )
+    return (
+        "unified_rag_pipeline.py에서 사용할 수 있는 진입 함수를 찾지 못했습니다. "
+        "query() 또는 ask_unified()가 필요합니다.",
+        [],
+        f"no entrypoint found. available_callables={public_callables}",
+    )
+
 
 # =========================
 # Pipeline load status

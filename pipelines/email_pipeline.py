@@ -9,7 +9,7 @@ EMBED_MODEL = "bge-m3"
 LLM_MODEL = "qwen2.5:7b-instruct"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_PATH = PROJECT_ROOT / "Data" / "Emails" / "fake_emails_2025.json"
+DATA_PATH = PROJECT_ROOT / "Data" / "Emails" / "internal_email_threads.json"
 PERSIST_DIR = PROJECT_ROOT / "vectorstores" / "emails_bge_m3"
 COLLECTION = "emails_bge_m3"
 

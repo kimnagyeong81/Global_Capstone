@@ -1,0 +1,120 @@
+{
+  "embed_model": "BAAI/bge-m3",
+  "sources": [
+    "email",
+    "slack",
+    "voice"
+  ],
+  "data_fingerprint": {
+    "emails": [
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Emails\\fake_emails_2025.json",
+        "size": 58041,
+        "mtime": 1767181652.2751052
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Emails\\internal_email_threads.json",
+        "size": 6606,
+        "mtime": 1767181652.5549908
+      }
+    ],
+    "slack": [
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Slack\\internal_slack_logs.json",
+        "size": 4598,
+        "mtime": 1767157959.1661777
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Slack\\slack_messages.json",
+        "size": 77165,
+        "mtime": 1767108940.8108249
+      }
+    ],
+    "voice": [
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (1).json",
+        "size": 920,
+        "mtime": 1767108940.9372878
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (3).json",
+        "size": 1078,
+        "mtime": 1767108940.9571295
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (4).json",
+        "size": 1173,
+        "mtime": 1767108940.9771516
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (5).json",
+        "size": 874,
+        "mtime": 1767108941.0026793
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (6).json",
+        "size": 1444,
+        "mtime": 1767108941.0200572
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (7).json",
+        "size": 1059,
+        "mtime": 1767108941.04647
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (8).json",
+        "size": 911,
+        "mtime": 1767108941.0694885
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\transcripts\\회의 음성 데이터 (9).json",
+        "size": 1086,
+        "mtime": 1767108941.0855093
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (1).json",
+        "size": 942,
+        "mtime": 1767108941.107527
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (3).json",
+        "size": 1100,
+        "mtime": 1767108941.7657354
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (4).json",
+        "size": 1195,
+        "mtime": 1767108941.7672944
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (5).json",
+        "size": 896,
+        "mtime": 1767108941.7688491
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (6).json",
+        "size": 1466,
+        "mtime": 1767108941.7714503
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (7).json",
+        "size": 1081,
+        "mtime": 1767108941.773021
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (8).json",
+        "size": 933,
+        "mtime": 1767108941.774068
+      },
+      {
+        "path": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice\\회의 음성 데이터 (9).json",
+        "size": 1108,
+        "mtime": 1767108941.7756443
+      }
+    ]
+  },
+  "generated_at": 1767183800.9473848,
+  "email_dir": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Emails",
+  "slack_dir": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Slack",
+  "voice_dir": "C:\\Users\\proto\\Desktop\\Global_Capstone\\Data\\Voice"
+}

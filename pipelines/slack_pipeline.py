@@ -9,7 +9,7 @@ EMBED_MODEL = "bge-m3"
 LLM_MODEL = "qwen2.5:7b-instruct"
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_PATH = PROJECT_ROOT / "Data" / "Slack" / "slack_messages.json"
+DATA_PATH = PROJECT_ROOT / "Data" / "Slack" / "internal_slack_logs.json"
 PERSIST_DIR = PROJECT_ROOT / "vectorstores" / "slack_bge_m3"
 COLLECTION = "slack_bge_m3"
 

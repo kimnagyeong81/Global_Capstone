@@ -2,400 +2,172 @@
   {
     "id": 1,
     "channel": "#strategy",
-    "date": "2025-06-02T20:53:00",
-    "sender": "Ops Manager Seo",
-    "text": "schedule is getting scary"
+    "date": "2025-06-01T09:20:00",
+    "sender": "PM Jung",
+    "text": "launch pressure is real, waiting on A feels risky"
   },
   {
     "id": 2,
     "channel": "#strategy",
-    "date": "2025-06-09T00:23:00",
-    "sender": "IR Lead Choi",
-    "text": "feels like death by a thousand cuts"
+    "date": "2025-06-02T10:45:00",
+    "sender": "Ops Manager Seo",
+    "text": "schedule is getting scary if the fix slips again"
   },
   {
     "id": 3,
     "channel": "#strategy",
-    "date": "2025-06-04T02:24:00",
-    "sender": "IR Lead Choi",
-    "text": "A keeps saying the fix is coming"
+    "date": "2025-06-02T14:10:00",
+    "sender": "CEO Park",
+    "text": "we need to be honest about the operational risk here"
   },
   {
     "id": 4,
     "channel": "#strategy",
-    "date": "2025-06-01T03:49:00",
-    "sender": "PM Jung",
-    "text": "launch pressure is real"
+    "date": "2025-06-04T01:50:00",
+    "sender": "IR Lead Choi",
+    "text": "A keeps saying the fix is coming but nothing concrete yet"
   },
   {
     "id": 5,
     "channel": "#strategy",
-    "date": "2025-06-02T13:03:00",
+    "date": "2025-06-06T17:10:00",
     "sender": "CEO Park",
-    "text": "we need to be honest about risk"
+    "text": "nothing feels fully right with the current path"
   },
   {
     "id": 6,
     "channel": "#strategy",
-    "date": "2025-06-09T02:49:00",
-    "sender": "PM Jung",
-    "text": "costs are not exploding yet but unpredictable"
+    "date": "2025-06-09T09:30:00",
+    "sender": "IR Lead Choi",
+    "text": "feels like death by a thousand cuts rather than one big issue"
   },
+
   {
     "id": 7,
-    "channel": "#strategy",
-    "date": "2025-06-01T22:14:00",
-    "sender": "IR Lead Choi",
-    "text": "externally this needs careful wording"
+    "channel": "#vendor-review",
+    "date": "2025-06-04T09:20:00",
+    "sender": "CFO Han",
+    "text": "not sure this feels stable enough long term"
   },
   {
     "id": 8,
-    "channel": "#strategy",
-    "date": "2025-06-06T16:58:00",
-    "sender": "CEO Park",
-    "text": "nothing feels fully right"
+    "channel": "#vendor-review",
+    "date": "2025-06-05T21:10:00",
+    "sender": "CFO Han",
+    "text": "this isn’t just about price anymore"
   },
   {
     "id": 9,
-    "channel": "#strategy",
-    "date": "2025-06-02T17:12:00",
+    "channel": "#vendor-review",
+    "date": "2025-06-06T22:30:00",
     "sender": "PM Jung",
-    "text": "A keeps saying the fix is coming"
+    "text": "if something breaks under A, we own the fallout"
   },
   {
     "id": 10,
-    "channel": "#strategy",
-    "date": "2025-06-04T19:02:00",
-    "sender": "CTO Lee",
-    "text": "B feels safer but also kind of rigid"
+    "channel": "#vendor-review",
+    "date": "2025-06-09T00:20:00",
+    "sender": "IR Lead Choi",
+    "text": "costs are manageable now but unpredictable later"
   },
   {
     "id": 11,
-    "channel": "#strategy",
-    "date": "2025-06-09T11:05:00",
-    "sender": "Ops Manager Seo",
-    "text": "hard to explain this cleanly"
+    "channel": "#vendor-review",
+    "date": "2025-06-10T14:40:00",
+    "sender": "CFO Han",
+    "text": "this might spook investors if uncertainty drags on"
   },
   {
     "id": 12,
-    "channel": "#strategy",
-    "date": "2025-06-08T18:11:00",
-    "sender": "Engineer Park",
-    "text": "I don’t love this situation"
+    "channel": "#vendor-review",
+    "date": "2025-06-12T11:00:00",
+    "sender": "IR Lead Choi",
+    "text": "we keep circling the same concerns without resolution"
   },
+
   {
     "id": 13,
-    "channel": "#strategy",
-    "date": "2025-06-08T17:51:00",
-    "sender": "Ops Manager Seo",
-    "text": "launch pressure is real"
+    "channel": "#exec-discussion",
+    "date": "2025-06-03T08:30:00",
+    "sender": "CEO Park",
+    "text": "not sure this feels stable enough to defend externally"
   },
   {
     "id": 14,
-    "channel": "#strategy",
-    "date": "2025-06-12T02:48:00",
-    "sender": "IR Lead Choi",
-    "text": "feels like death by a thousand cuts"
+    "channel": "#exec-discussion",
+    "date": "2025-06-04T21:00:00",
+    "sender": "Ops Manager Seo",
+    "text": "schedule is getting scary if we wait another week"
   },
   {
     "id": 15,
-    "channel": "#strategy",
-    "date": "2025-06-01T10:54:00",
-    "sender": "PM Jung",
-    "text": "trust is part of it but not all"
+    "channel": "#exec-discussion",
+    "date": "2025-06-07T19:20:00",
+    "sender": "IR Lead Choi",
+    "text": "this isn’t just about price, it’s about credibility"
   },
   {
     "id": 16,
-    "channel": "#strategy",
-    "date": "2025-06-04T17:33:00",
+    "channel": "#exec-discussion",
+    "date": "2025-06-10T13:30:00",
     "sender": "Engineer Kim",
-    "text": "schedule is getting scary"
+    "text": "we need to be honest about the technical risk"
   },
   {
     "id": 17,
-    "channel": "#strategy",
-    "date": "2025-06-14T08:21:00",
-    "sender": "Engineer Kim",
-    "text": "trust is part of it but not all"
+    "channel": "#exec-discussion",
+    "date": "2025-06-12T16:30:00",
+    "sender": "CTO Lee",
+    "text": "A keeps saying the fix is coming, but B feels more predictable"
   },
   {
     "id": 18,
-    "channel": "#strategy",
-    "date": "2025-06-02T17:09:00",
-    "sender": "Engineer Kim",
-    "text": "we need to be honest about risk"
+    "channel": "#exec-discussion",
+    "date": "2025-06-15T18:05:00",
+    "sender": "Engineer Park",
+    "text": "I’m uneasy about waiting another week without a decision"
   },
+
   {
     "id": 19,
-    "channel": "#vendor-review",
-    "date": "2025-06-10T20:57:00",
-    "sender": "CFO Han",
-    "text": "not sure this feels stable"
+    "channel": "#engineering-sync",
+    "date": "2025-06-01T08:50:00",
+    "sender": "Ops Manager Seo",
+    "text": "waiting on A’s fix is starting to feel risky"
   },
   {
     "id": 20,
-    "channel": "#vendor-review",
-    "date": "2025-06-06T23:39:00",
-    "sender": "CFO Han",
-    "text": "I don’t love this situation"
+    "channel": "#engineering-sync",
+    "date": "2025-06-03T22:40:00",
+    "sender": "CTO Lee",
+    "text": "launch pressure is real on the engineering side"
   },
   {
     "id": 21,
-    "channel": "#vendor-review",
-    "date": "2025-06-15T12:52:00",
+    "channel": "#engineering-sync",
+    "date": "2025-06-05T03:10:00",
     "sender": "Engineer Park",
-    "text": "I don’t love this situation"
+    "text": "I don’t love this situation technically"
   },
   {
     "id": 22,
-    "channel": "#vendor-review",
-    "date": "2025-06-04T09:37:00",
+    "channel": "#engineering-sync",
+    "date": "2025-06-07T11:15:00",
     "sender": "CEO Park",
-    "text": "I don’t love this situation"
+    "text": "this might spook investors if it turns into an incident"
   },
   {
     "id": 23,
-    "channel": "#vendor-review",
-    "date": "2025-06-15T18:26:00",
+    "channel": "#engineering-sync",
+    "date": "2025-06-11T08:00:00",
     "sender": "CEO Park",
-    "text": "costs are not exploding yet but unpredictable"
+    "text": "not sure this feels stable enough to keep waiting"
   },
   {
     "id": 24,
-    "channel": "#vendor-review",
-    "date": "2025-06-04T06:13:00",
-    "sender": "CFO Han",
-    "text": "externally this needs careful wording"
-  },
-  {
-    "id": 25,
-    "channel": "#vendor-review",
-    "date": "2025-06-14T18:48:00",
-    "sender": "CFO Han",
-    "text": "hard to explain this cleanly"
-  },
-  {
-    "id": 26,
-    "channel": "#vendor-review",
-    "date": "2025-06-09T00:06:00",
-    "sender": "IR Lead Choi",
-    "text": "costs are not exploding yet but unpredictable"
-  },
-  {
-    "id": 27,
-    "channel": "#vendor-review",
-    "date": "2025-06-15T04:11:00",
-    "sender": "PM Jung",
-    "text": "this isn’t just about price"
-  },
-  {
-    "id": 28,
-    "channel": "#vendor-review",
-    "date": "2025-06-05T21:58:00",
-    "sender": "CFO Han",
-    "text": "this isn’t just about price"
-  },
-  {
-    "id": 29,
-    "channel": "#vendor-review",
-    "date": "2025-06-12T11:09:00",
-    "sender": "IR Lead Choi",
-    "text": "we keep circling the same concerns"
-  },
-  {
-    "id": 30,
-    "channel": "#vendor-review",
-    "date": "2025-06-10T14:50:00",
-    "sender": "CFO Han",
-    "text": "this might spook investors"
-  },
-  {
-    "id": 31,
-    "channel": "#vendor-review",
-    "date": "2025-06-15T16:09:00",
-    "sender": "PM Jung",
-    "text": "if something breaks we own it"
-  },
-  {
-    "id": 32,
-    "channel": "#vendor-review",
-    "date": "2025-06-06T22:51:00",
-    "sender": "PM Jung",
-    "text": "not sure this feels stable"
-  },
-  {
-    "id": 33,
-    "channel": "#exec-discussion",
-    "date": "2025-06-12T22:57:00",
-    "sender": "Engineer Park",
-    "text": "trust is part of it but not all"
-  },
-  {
-    "id": 34,
-    "channel": "#exec-discussion",
-    "date": "2025-06-09T15:20:00",
-    "sender": "Engineer Kim",
-    "text": "this might spook investors"
-  },
-  {
-    "id": 35,
-    "channel": "#exec-discussion",
-    "date": "2025-06-15T04:19:00",
-    "sender": "Ops Manager Seo",
-    "text": "nothing feels fully right"
-  },
-  {
-    "id": 36,
-    "channel": "#exec-discussion",
-    "date": "2025-06-07T19:39:00",
-    "sender": "IR Lead Choi",
-    "text": "this isn’t just about price"
-  },
-  {
-    "id": 37,
-    "channel": "#exec-discussion",
-    "date": "2025-06-06T03:49:00",
-    "sender": "PM Jung",
-    "text": "nothing feels fully right"
-  },
-  {
-    "id": 38,
-    "channel": "#exec-discussion",
-    "date": "2025-06-03T08:55:00",
+    "channel": "#engineering-sync",
+    "date": "2025-06-15T09:00:00",
     "sender": "CTO Lee",
-    "text": "this isn’t just about price"
-  },
-  {
-    "id": 39,
-    "channel": "#exec-discussion",
-    "date": "2025-06-04T23:09:00",
-    "sender": "Ops Manager Seo",
-    "text": "schedule is getting scary"
-  },
-  {
-    "id": 40,
-    "channel": "#exec-discussion",
-    "date": "2025-06-12T16:40:00",
-    "sender": "CTO Lee",
-    "text": "A keeps saying the fix is coming"
-  },
-  {
-    "id": 41,
-    "channel": "#exec-discussion",
-    "date": "2025-06-03T08:22:00",
-    "sender": "CEO Park",
-    "text": "not sure this feels stable"
-  },
-  {
-    "id": 42,
-    "channel": "#exec-discussion",
-    "date": "2025-06-15T18:07:00",
-    "sender": "Engineer Park",
-    "text": "I’m uneasy about waiting another week"
-  },
-  {
-    "id": 43,
-    "channel": "#exec-discussion",
-    "date": "2025-06-04T21:16:00",
-    "sender": "Engineer Kim",
-    "text": "costs are not exploding yet but unpredictable"
-  },
-  {
-    "id": 44,
-    "channel": "#exec-discussion",
-    "date": "2025-06-11T01:41:00",
-    "sender": "IR Lead Choi",
-    "text": "we need to be honest about risk"
-  },
-  {
-    "id": 45,
-    "channel": "#exec-discussion",
-    "date": "2025-06-10T13:45:00",
-    "sender": "Engineer Kim",
-    "text": "we need to be honest about risk"
-  },
-  {
-    "id": 46,
-    "channel": "#exec-discussion",
-    "date": "2025-06-05T21:20:00",
-    "sender": "PM Jung",
-    "text": "hard to explain this cleanly"
-  },
-  {
-    "id": 47,
-    "channel": "#exec-discussion",
-    "date": "2025-06-08T20:57:00",
-    "sender": "CEO Park",
-    "text": "trust is part of it but not all"
-  },
-  {
-    "id": 48,
-    "channel": "#engineering-sync",
-    "date": "2025-06-13T17:47:00",
-    "sender": "Ops Manager Seo",
-    "text": "we need to be honest about risk"
-  },
-  {
-    "id": 49,
-    "channel": "#engineering-sync",
-    "date": "2025-06-03T22:56:00",
-    "sender": "CTO Lee",
-    "text": "launch pressure is real"
-  },
-  {
-    "id": 50,
-    "channel": "#engineering-sync",
-    "date": "2025-06-07T11:26:00",
-    "sender": "CEO Park",
-    "text": "this might spook investors"
-  },
-  {
-    "id": 51,
-    "channel": "#engineering-sync",
-    "date": "2025-06-15T09:05:00",
-    "sender": "CTO Lee",
-    "text": "I don’t love this situation"
-  },
-  {
-    "id": 52,
-    "channel": "#engineering-sync",
-    "date": "2025-06-07T15:34:00",
-    "sender": "Engineer Park",
-    "text": "this might spook investors"
-  },
-  {
-    "id": 53,
-    "channel": "#engineering-sync",
-    "date": "2025-06-05T03:21:00",
-    "sender": "Engineer Park",
-    "text": "I don’t love this situation"
-  },
-  {
-    "id": 54,
-    "channel": "#engineering-sync",
-    "date": "2025-06-01T04:34:00",
-    "sender": "Ops Manager Seo",
-    "text": "I’m uneasy about waiting another week"
-  },
-  {
-    "id": 55,
-    "channel": "#engineering-sync",
-    "date": "2025-06-02T11:16:00",
-    "sender": "Engineer Kim",
-    "text": "A keeps saying the fix is coming"
-  },
-  {
-    "id": 56,
-    "channel": "#engineering-sync",
-    "date": "2025-06-11T15:00:00",
-    "sender": "Engineer Park",
-    "text": "I’m uneasy about waiting another week"
-  },
-  {
-    "id": 57,
-    "channel": "#engineering-sync",
-    "date": "2025-06-11T08:02:00",
-    "sender": "CEO Park",
-    "text": "not sure this feels stable"
+    "text": "I don’t love this situation, but B is at least predictable"
   }
 ]

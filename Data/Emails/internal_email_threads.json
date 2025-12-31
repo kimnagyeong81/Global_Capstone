@@ -2,58 +2,141 @@
   {
     "thread_id": "T1",
     "email_id": 1,
-    "date": "2025-04-27T08:00:00",
-    "from": "CEO Park",
-    "to": [
-      "CTO Lee",
-      "CFO Han"
-    ],
-    "subject": "Next steps regarding vendor arrangement",
-    "body": "Following our recent conversations, we should proceed with updating the vendor arrangement as outlined. Please align your teams accordingly."
+    "date": "2025-06-01T09:10:00",
+    "from": "CTO Lee",
+    "to": ["CEO Park"],
+    "subject": "Initial stability observations with Vendor A",
+    "body": "During the latest integration review, several previously flagged issues resurfaced. Vendor A indicated that fixes are underway, but we still do not have documented timelines or validation results. This makes it difficult to assess whether the platform is converging toward stability."
   },
   {
     "thread_id": "T1",
     "email_id": 2,
-    "date": "2025-04-20T06:00:00",
-    "from": "CFO Han",
-    "to": [
-      "CEO Park"
-    ],
-    "subject": "Re: Next steps regarding vendor arrangement",
-    "body": "Understood. Finance will prepare the necessary adjustments as discussed earlier."
+    "date": "2025-06-02T11:40:00",
+    "from": "Engineer Park",
+    "to": ["CTO Lee"],
+    "subject": "Follow-up on recurring technical issues",
+    "body": "From the engineering side, we are seeing the same failure patterns reappear after each patch. While none are blocking individually, the repetition without clear root-cause confirmation is raising concerns about long-term reliability."
+  },
+  {
+    "thread_id": "T1",
+    "email_id": 3,
+    "date": "2025-06-03T15:05:00",
+    "from": "Ops Manager Seo",
+    "to": ["CTO Lee", "PM Jung"],
+    "subject": "Operational risk under current Vendor A setup",
+    "body": "Operationally, the main concern is not current uptime but ownership. If an incident occurs post-launch, escalation paths remain unclear, and recovery responsibility would largely fall on our internal teams."
+  },
+
+  {
+    "thread_id": "T2",
+    "email_id": 4,
+    "date": "2025-06-04T09:20:00",
+    "from": "PM Jung",
+    "to": ["CTO Lee"],
+    "subject": "Dependency of launch schedule on Vendor A fixes",
+    "body": "The current launch plan is now tightly coupled to Vendor A’s pending fixes. Without firm delivery dates, the schedule risk is shifting from a contingency issue to a core planning constraint."
   },
   {
     "thread_id": "T2",
-    "email_id": 3,
-    "date": "2025-04-18T06:00:00",
-    "from": "CTO Lee",
-    "to": [
-      "CEO Park"
-    ],
-    "subject": "Technical follow-up",
-    "body": "As discussed in prior sessions, the team will move forward with the alternative setup. We will document remaining considerations separately."
+    "email_id": 5,
+    "date": "2025-06-04T14:30:00",
+    "from": "Ops Manager Seo",
+    "to": ["CTO Lee", "PM Jung"],
+    "subject": "Schedule risk assessment",
+    "body": "Based on the latest projections, the schedule buffer has narrowed significantly. Waiting an additional one to two weeks for Vendor A may push us beyond a safe launch window, even if fixes arrive as promised."
+  },
+  {
+    "thread_id": "T2",
+    "email_id": 6,
+    "date": "2025-06-06T18:10:00",
+    "from": "Engineer Kim",
+    "to": ["Ops Manager Seo"],
+    "subject": "Engineering perspective on continued delay",
+    "body": "From an engineering standpoint, additional waiting does not meaningfully reduce uncertainty unless accompanied by verified fixes. The risk is that time passes without improving confidence."
+  },
+
+  {
+    "thread_id": "T3",
+    "email_id": 7,
+    "date": "2025-06-07T10:05:00",
+    "from": "CFO Han",
+    "to": ["CEO Park"],
+    "subject": "Cost predictability concerns",
+    "body": "Costs associated with Vendor A are currently within budget, but forward visibility remains limited. The concern is not immediate overspend, but the inability to forecast downstream financial exposure under prolonged uncertainty."
   },
   {
     "thread_id": "T3",
-    "email_id": 4,
-    "date": "2025-04-28T03:00:00",
-    "from": "Procurement Kim",
-    "to": [
-      "CFO Han",
-      "Legal Team"
-    ],
-    "subject": "Contract update status",
-    "body": "Following our earlier discussions, the updated contract draft is being finalized. No further action is required at this stage."
+    "email_id": 8,
+    "date": "2025-06-08T13:45:00",
+    "from": "Finance Team",
+    "to": ["CFO Han"],
+    "subject": "Scenario analysis under extended Vendor A engagement",
+    "body": "Scenario modeling shows a widening cost variance if remediation extends beyond the current window. While not catastrophic, the unpredictability complicates planning and external guidance."
+  },
+
+  {
+    "thread_id": "T4",
+    "email_id": 9,
+    "date": "2025-06-09T10:20:00",
+    "from": "IR Lead Choi",
+    "to": ["CEO Park", "CFO Han"],
+    "subject": "Challenges in external narrative",
+    "body": "Under the current situation with Vendor A, it is difficult to articulate a concise and defensible narrative externally. The issue is not severity but ambiguity, which tends to generate follow-up questions we cannot answer cleanly."
   },
   {
     "thread_id": "T4",
-    "email_id": 5,
-    "date": "2025-04-19T15:00:00",
+    "email_id": 10,
+    "date": "2025-06-09T16:40:00",
     "from": "IR Lead Choi",
-    "to": [
-      "CEO Park"
-    ],
-    "subject": "External communication alignment",
-    "body": "In line with what we aligned on previously, external messaging will remain high-level and focus on continuity."
+    "to": ["CEO Park", "CFO Han"],
+    "subject": "Investor communication implications",
+    "body": "Prolonged uncertainty increases the risk of investor misinterpretation. Even if operations remain stable, repeated caveats could erode confidence more than a clearly explained strategic shift."
+  },
+
+  {
+    "thread_id": "T5",
+    "email_id": 11,
+    "date": "2025-06-11T09:30:00",
+    "from": "CTO Lee",
+    "to": ["CEO Park"],
+    "subject": "Preliminary comparison: Vendor A vs Vendor B",
+    "body": "Vendor B’s architecture appears more constrained, but responsibilities, SLAs, and escalation paths are clearly defined. This contrasts with Vendor A’s flexibility, which currently comes with greater ambiguity."
+  },
+  {
+    "thread_id": "T5",
+    "email_id": 12,
+    "date": "2025-06-12T11:20:00",
+    "from": "PM Jung",
+    "to": ["CTO Lee", "Ops Manager Seo"],
+    "subject": "Comparative assessment: Vendor A vs Vendor B",
+    "body": "Given current launch pressure, the trade-off between flexibility and predictability is becoming more relevant. Vendor B may limit certain options, but it reduces the number of unknowns we must manage."
+  },
+
+  {
+    "thread_id": "T6",
+    "email_id": 13,
+    "date": "2025-06-13T17:00:00",
+    "from": "CEO Park",
+    "to": ["CTO Lee", "CFO Han"],
+    "subject": "Synthesis of recent concerns",
+    "body": "Across teams, the recurring theme is not a single failure but accumulated uncertainty. Technical confidence, schedule predictability, and external messaging are all being impacted in parallel."
+  },
+  {
+    "thread_id": "T6",
+    "email_id": 14,
+    "date": "2025-06-14T19:10:00",
+    "from": "CEO Park",
+    "to": ["IR Lead Choi"],
+    "subject": "External risk posture check",
+    "body": "Before finalizing our direction, I want to ensure that any decision we make can be explained consistently and credibly to the market without extended qualification."
+  },
+  {
+    "thread_id": "T6",
+    "email_id": 15,
+    "date": "2025-06-15T18:00:00",
+    "from": "CEO Park",
+    "to": ["CTO Lee", "CFO Han", "IR Lead Choi"],
+    "subject": "Decision on vendor transition",
+    "body": "After reviewing the past two weeks of discussions, we will proceed with terminating the contract with Vendor A and move forward with Vendor B. This reflects cumulative concerns around technical ownership, schedule risk under uncertainty, and the need for a clearer external narrative. Please align next steps accordingly."
   }
 ]

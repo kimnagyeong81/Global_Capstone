@@ -6,7 +6,7 @@ from pipelines.slack_pipeline import build_slack_index, ask_slack
 from pipelines.voice_stt_pipeline import run_voice_stt
 from pipelines.voice_rag_pipeline import build_voice_index, ask_voice
 
-from pipelines.unified_rag_pipeline import build_unified_index, ask_unified
+from pipelines.unified_rag_pipeline_backup import build_unified_index, ask_unified
 
 
 def main():
